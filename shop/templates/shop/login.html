@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}
+    О нас
+{% endblock title %}
+<body>
+    {% block content %}
+        <section class="container py-5">
+            <div class="row text-center pt-5 pb-3">
+                <div class="col-lg-6 m-auto alert alert-success">
+                    <form class="row g-3" method="POST">
+                        {% csrf_token %}
+                        <div class="col-12">
+                            <label for="inputAddress" class="form-label">Эл. адрес</label>
+                            <input type="text" 
+                                   class="form-control"    
+                                   id="inputEmail4" 
+                                   placeholder="Email"
+                                   name=email>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputPassword4" class="form-label">Пароль</label>
+                            <input type="password"
+                                   class="form-control"
+                                   id="inputPassword4"
+                                   placeholder="Password"
+                                   name=password1>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputPassword4" class="form-label">Повторите пароль</label>
+                            <input type="password"
+                                   class="form-control"
+                                   id="inputPassword4"
+                                   placeholder="Password"
+                                   name=password2>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-success">Войти</button>
+                        </div>
+                        <p class="py-2">
+                            <span class="list-inline-item text-dark">Нет аккаунта? | <a href="{% url 'register' %}">
+                                <button type="button" class="btn btn-outline-success">Регистрация</button>
+                            </span></a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </section>
+    {% endblock content %}
+</body>

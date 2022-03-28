@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}
+    О нас
+{% endblock title %}
+<body>
+    {% block content %}
+    {% if messages %}
+    {% for message in messages %}
+
+        {% if massage.tags == "error" %}
+            <div class="alert alert-danger" role=alert>
+                {{ message }}
+            </div>
+        {% else %}
+            <div class="alert alert-{{ massage.tags }}" role=alert>
+                {{ message }}
+            </div>
+        {% endif %}
+
+    {% endfor %}
+    {% endif %}
+        <section class="container py-5">
+            <div class="row text-center pt-5 pb-3">
+                <div class="col-lg-6 m-auto alert alert-success">
+                    <form class="row g-3" method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-success">Регистрация</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    {% endblock content %}
+</body>
