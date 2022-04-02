@@ -94,16 +94,14 @@
                                 <p>
                                     {{ product.description }}
                                 </p>
-                                <h6>Specification:</h6>
-                                <ul class="list-unstyled pb-3">
-                                    <li>Lorem ipsum dolor sit</li>
-                                    <li>Amet, consectetur</li>
-                                    <li>Adipiscing elit,set</li>
-                                    <li>Duis aute irure</li>
-                                    <li>Ut enim ad minim</li>
-                                    <li>Dolore magna aliqua</li>
-                                    <li>Excepteur sint</li>
-                                </ul>
+                                <h6>Характеристики:</h6>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Бренд | {{product.manufacturer}}</li>
+                                    <li class="list-group-item">Озу | {{product.ram.first}}</li>
+                                    <li class="list-group-item">Платформа | {{product.platform.first}}</li>
+                                    <li class="list-group-item">Операционная система | {{product.os.first}}</li>
+                                    <li class="list-group-item">Модель | {{product.model}}</li>
+                                  </ul>
                                 <form action="" method="GET">
                                     <input type="hidden" name="product-title" value="Activewear">
                                     <div class="row pb-3">

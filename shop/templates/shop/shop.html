@@ -45,16 +45,15 @@
                         <br>{% endcomment %}
                         <form action="{% url 'filter' %}" method='get'>
 
-                            <ul class="list-group">
+                            {% comment %} <ul class="list-group">
                                 <li class="list-group-item list-group-item-action list-group-item-dark">Бренд</li>
                             {% for brand in brands %}
                             <li class="list-group-item">
                                 <input class="form-check-input me-1" type="checkbox" name='manufacturer' value="{{ brand.id }}">
                                 {{ brand }}
-                            </li>
-                            {% endfor %}
-                            </ul>
-                            <br>
+                            </li> {% endcomment %}
+                            {% comment %} {% endfor %} {% endcomment %}
+            
                             <ul class="list-group">
                                 <li class="list-group-item list-group-item-action list-group-item-dark">Операционная система</li>
                                 {% for oper in operativ %}
@@ -166,6 +165,15 @@
                                         </ul>
                                         <p class="text-center mb-0">
                                             {{ product.price }}p.
+                                        </p>
+                                        <p class="text-center mb-0">
+                                            {{ product.platform.first }}
+                                        </p>
+                                        <p class="text-center mb-0">
+                                            {{ product.os.first }}
+                                        </p>
+                                        <p class="text-center mb-0">
+                                            {{ product.ram.first }}
                                         </p>
                                     </div>
                                 </div>

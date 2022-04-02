@@ -1,5 +1,17 @@
 from django.contrib import admin
-from .models import Product, Category, Reviews, Rating, RatingStar, ProductShots, Brand, OperatingSystems, Platform, Ram
+
+from .models import(
+    Product,
+    Category, 
+    Reviews, 
+    Rating, 
+    RatingStar, 
+    ProductShots, 
+    Brand, 
+    OperatingSystems, 
+    Platform, 
+    Ram
+    )
 
 
 @admin.register(Brand)
