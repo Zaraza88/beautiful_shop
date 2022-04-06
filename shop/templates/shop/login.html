@@ -6,7 +6,7 @@
     {% block content %}
         <section class="container py-5">
             <div class="row text-center pt-5 pb-3">
-                <div class="col-lg-6 m-auto alert alert-success">
+                <div class="col-lg-6 m-auto alert alert-dark">
                     <form class="row g-3" method="POST">
                         {% csrf_token %}
                         <div class="col-12">
@@ -42,6 +42,25 @@
                             </span></a>
                         </p>
                     </form>
+            <div class="col-12 mb-3">
+                <div class="w-100 my-3 border-top border-dark"></div>
+            </div>
+            <div class="col-auto me-auto">
+                <ul class="list-inline text-left footer-icons">
+                    <li class="list-inline-item rounded-circle text-center">
+                        <a class="text-dark text-decoration-none" target="_blank" href="http://google.com/"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a>
+                    </li>
+                    <li class="list-inline-item rounded-circle text-center">
+                        <a class="text-dark text-decoration-none" target="_blank" href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
+                    </li>
+                    <li class="list-inline-item rounded-circle text-center">
+                        <a class="text-dark text-decoration-none" target="_blank" href="https://twitter.com/"><i class="fab fa-twitter fa-lg fa-fw"></i></a>
+                    </li>
+                    <li class="list-inline-item rounded-circle text-center">
+                        <a class="text-dark text-decoration-none" target="_blank" href="https://www.vk.com/"><i class="fab fa-vk fa-lg fa-fw"></i></a>
+                    </li>
+                </ul>
+            </div>
                 </div>
             </div>
         </section>

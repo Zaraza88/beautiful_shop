@@ -181,25 +181,40 @@
                         {% endfor %}
                     </div>
                     <!-- пагинация -->
-                    <div div="row">
-                        <ul class="pagination pagination-lg justify-content-end">
-                            <li class="page-item disabled">
-                                <a class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0"
-                                   href="#"
-                                   tabindex="-1">1</a>
-                            </li>
+                    {% if page_obj.has_other_pages %}
+                    <nav aria-label="...">
+                        <ul class="pagination pagination-lg justify-content-center">
+        
+                            {% if page_obj.has_previous %}
                             <li class="page-item">
-                                <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark"
-                                   href="#">2</a>
+                                <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"><i class="fa fa-arrow-left" aria-hidden="true"></i>
+                                </a>
                             </li>
+                            {% endif %}
+        
+                            {% for p in page_obj.paginator.page_range %}
+                                {% if page_obj.number == p %}
+                                    <li class="page-item disabled" aria-current="page">
+                                        <a class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" href="?page={{p}}">{{p}}</a>
+                                    </li>
+                                {% elif p > page_obj.number|add:-3 and p < page_obj.number|add:3 %}
+                                    <li class="page-item">
+                                        <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="?page={{p}}">{{p}}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+        
+                            {% if page_obj.has_next %}
                             <li class="page-item">
-                                <a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark"
-                                   href="#">3</a>
+                                <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="?page={{ page_obj.next_page_number }}"><i class="fa fa-arrow-right" aria-hidden="true"></i>
+                                </a>
                             </li>
+                            {% endif %}
                         </ul>
-                    </div>
+                    </nav>
+                    {% endif %}
+                    <!-- пагинация -->
                 </div>
-                <!-- пагинация -->
             </div>
         </div>
         <!-- End Content -->

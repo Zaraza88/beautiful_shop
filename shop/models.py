@@ -111,7 +111,7 @@ class Product(models.Model):
 
 
 class ProductShots(models.Model):
-    """Кадры из фильма"""
+    """Доп фото к продукту"""
 
     title = models.CharField('Заголовок', max_length=100)
     description = models.TextField('Описание')

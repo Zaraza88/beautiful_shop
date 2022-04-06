@@ -8,8 +8,7 @@ from .models import Category, Product
 
 class ProductViev(DataMixin):
     '''Возвращает список товара на главной странице'''
-
-
+    
     def get_queryset(self):
         return Product.objects.filter(available=True)
 
