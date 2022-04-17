@@ -1,6 +1,8 @@
 from django.views.generic import ListView
 
-from .models import Category, Brand, Product, OperatingSystems, Platform, Ram
+from .models import (
+    Category, Brand, Product, OperatingSystems, Platform, Ram
+)
 
 
 class DataMixin(ListView):
@@ -22,6 +24,8 @@ class DataMixin(ListView):
         #поиск по названию и бренду
         search_by = self.request.GET.get('query')
         if search_by:
-            context['products'] = Product.objects.filter(name__icontains=search_by)
+            context['products'] = Product.objects.filter(
+                name__icontains=search_by
+            )
         return context
 

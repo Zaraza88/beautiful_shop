@@ -17,6 +17,8 @@ class AddReview(View):
         if form.is_valid():
             form = form.save(commit=False)
             form.product = product
+            form.name = request.user
+            form.email = request.user.email
             form.save()
         return redirect(product.get_absolute_url())
 
@@ -27,7 +29,8 @@ def register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            login(request, user)
             messages.success(request, 'EEEE регистрация')
             return redirect('register')
         else:

@@ -9,13 +9,15 @@
                 <div class="col-lg-6 m-auto alert alert-dark">
                     <form class="row g-3" method="POST">
                         {% csrf_token %}
-                        <div class="col-12">
-                            <label for="inputAddress" class="form-label">Эл. адрес</label>
+                        {{ form.as_p }}
+
+                        {% comment %} <div class="col-12">
+                            <label for="inputAddress" class="form-label">Имя</label>
                             <input type="text" 
                                    class="form-control"    
                                    id="inputEmail4" 
-                                   placeholder="Email"
-                                   name=email>
+                                   placeholder="Username"
+                                   name=username>
                         </div>
                         <div class="col-md-6">
                             <label for="inputPassword4" class="form-label">Пароль</label>
@@ -23,16 +25,8 @@
                                    class="form-control"
                                    id="inputPassword4"
                                    placeholder="Password"
-                                   name=password1>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="inputPassword4" class="form-label">Повторите пароль</label>
-                            <input type="password"
-                                   class="form-control"
-                                   id="inputPassword4"
-                                   placeholder="Password"
-                                   name=password2>
-                        </div>
+                                   name=password>
+                        </div> {% endcomment %}
                         <div class="col-12">
                             <button type="submit" class="btn btn-success">Войти</button>
                         </div>
@@ -42,27 +36,27 @@
                             </span></a>
                         </p>
                     </form>
-            <div class="col-12 mb-3">
-                <div class="w-100 my-3 border-top border-dark"></div>
-            </div>
-            <div class="col-auto me-auto">
-                <ul class="list-inline text-left footer-icons">
-                    <li class="list-inline-item rounded-circle text-center">
-                        <a class="text-dark text-decoration-none" target="_blank" href="http://google.com/"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a>
-                    </li>
-                    <li class="list-inline-item rounded-circle text-center">
-                        <a class="text-dark text-decoration-none" target="_blank" href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
-                    </li>
-                    <li class="list-inline-item rounded-circle text-center">
-                        <a class="text-dark text-decoration-none" target="_blank" href="https://twitter.com/"><i class="fab fa-twitter fa-lg fa-fw"></i></a>
-                    </li>
-                    <li class="list-inline-item rounded-circle text-center">
-                        <a class="text-dark text-decoration-none" target="_blank" href="https://www.vk.com/"><i class="fab fa-vk fa-lg fa-fw"></i></a>
-                    </li>
-                </ul>
-            </div>
-                </div>
-            </div>
+                        <div class="col-12 mb-3">
+                            <div class="w-100 my-3 border-top border-dark"></div>
+                        </div>
+                        <div class="col-auto me-auto">
+                            <ul class="list-inline text-left footer-icons">
+                                <li class="list-inline-item rounded-circle text-center">
+                                    <a class="text-dark text-decoration-none" target="_blank" href="http://google.com/"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a>
+                                </li>
+                                <li class="list-inline-item rounded-circle text-center">
+                                    <a class="text-dark text-decoration-none" target="_blank" href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
+                                </li>
+                                <li class="list-inline-item rounded-circle text-center">
+                                    <a class="text-dark text-decoration-none" target="_blank" href="https://twitter.com/"><i class="fab fa-twitter fa-lg fa-fw"></i></a>
+                                </li>
+                                <li class="list-inline-item rounded-circle text-center">
+                                    <a class="text-dark text-decoration-none" target="_blank" href="https://www.vk.com/"><i class="fab fa-vk fa-lg fa-fw"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                            </div>
+                        </div>
         </section>
     {% endblock content %}
 </body>

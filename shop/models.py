@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 from django.core.validators import MaxValueValidator
+from django.contrib.auth.models import User
+
 
 
 class Category(models.Model):
@@ -8,7 +10,9 @@ class Category(models.Model):
 
     name = models.CharField('Название категории', max_length=200, db_index=True)
     slug = models.SlugField('URL', max_length=200, db_index=True, unique=True)
-    image = models.ImageField('Изображение', upload_to='category/%Y/%m/%d', blank=True)
+    image = models.ImageField(
+        'Изображение', upload_to='category/%Y/%m/%d', blank=True
+    )
 
     def get_absolute_url(self):
         return reverse('category', kwargs={'category_slug': self.slug})
@@ -27,7 +31,9 @@ class Brand(models.Model):
 
 
     name = models.CharField('Название', max_length=100)
-    image = models.ImageField('Изображение', upload_to='brand/%Y/%m/%d', blank=True)
+    image = models.ImageField(
+        'Изображение', upload_to='brand/%Y/%m/%d', blank=True
+    )
 
     class Meta:
         verbose_name = 'Бренд'
@@ -72,11 +78,14 @@ class Product(models.Model):
     """Продукт"""
 
     category = models.ForeignKey(
-        Category, related_name='products', on_delete=models.CASCADE, verbose_name='Категория'
+        Category, related_name='products', 
+        on_delete=models.CASCADE, verbose_name='Категория'
     )
     name = models.CharField('Название', max_length=200, db_index=True)
     slug = models.SlugField('Юрл', max_length=200, db_index=True)
-    image = models.ImageField('Изображение', upload_to='products/%Y/%m/%d', blank=True)
+    image = models.ImageField(
+        'Изображение', upload_to='products/%Y/%m/%d', blank=True
+    )
     description = models.TextField('Описание продукта', blank=True)
     price = models.DecimalField('Цена', max_digits=10, decimal_places=2)
     stock = models.PositiveIntegerField('Остаток продукта')
@@ -94,7 +103,9 @@ class Product(models.Model):
     os = models.ManyToManyField(
         OperatingSystems, verbose_name='Операционная система', blank=True
     )
-    platform = models.ManyToManyField(Platform, verbose_name='Платформа', blank=True)
+    platform = models.ManyToManyField(
+        Platform, verbose_name='Платформа', blank=True
+    )
     ram = models.ManyToManyField(Ram, verbose_name='Озу', blank=True)
 
     def get_absolute_url(self):
@@ -116,7 +127,9 @@ class ProductShots(models.Model):
     title = models.CharField('Заголовок', max_length=100)
     description = models.TextField('Описание')
     image = models.ImageField('Изображение', upload_to='movie_shots')
-    product = models.ForeignKey(Product, verbose_name='Продукт', on_delete=models.CASCADE)
+    product = models.ForeignKey(
+        Product, verbose_name='Продукт', on_delete=models.CASCADE
+    )
 
     def __str__(self) -> str:
         return self.title
@@ -151,8 +164,12 @@ class Rating(models.Model):
     """Рейтинг"""
 
     ip = models.CharField('IP адрес', max_length=15)
-    star = models.ForeignKey(RatingStar, on_delete=models.CASCADE, verbose_name='Звезда')
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Продукт')
+    star = models.ForeignKey(
+        RatingStar, on_delete=models.CASCADE, verbose_name='Звезда'
+    )
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, verbose_name='Продукт'
+    )
 
     def __str__(self) -> str:
         return f"{self.star} - {self.product}"
@@ -169,9 +186,17 @@ class Reviews(models.Model):
     name = models.CharField('Имя', max_length=100)
     text = models.TextField('Сообщение', max_length=5000)
     parent = models.ForeignKey(
-        'self', verbose_name='Родитель', on_delete=models.SET_NULL, blank=True, null=True
+        'self', verbose_name='Родитель', 
+        on_delete=models.SET_NULL, blank=True, null=True
     )
-    product = models.ForeignKey(Product, verbose_name='продукт', on_delete=models.CASCADE)
+    product = models.ForeignKey(
+        Product, verbose_name='продукт', on_delete=models.CASCADE
+    )
+    date = models.DateTimeField(auto_now=True)
+    name = models.ForeignKey(
+        User, blank=True, null=True, 
+        on_delete=models.PROTECT, verbose_name='Автор комментария'
+    )
 
     def __str__(self) -> str:
         return f"{self.name} - {self.product}"
@@ -179,3 +204,4 @@ class Reviews(models.Model):
     class Meta:
         verbose_name = 'Отзыв'
         verbose_name_plural = 'Отзывы'
+        ordering = ['-date']

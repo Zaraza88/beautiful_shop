@@ -13,7 +13,7 @@ class ProductViev(DataMixin):
         return Product.objects.filter(available=True)
 
 
-class CategoryViev(DataMixin):
+class CategoryView(DataMixin):
     '''Вывод по определенным категориям'''
 
     def get_queryset(self):

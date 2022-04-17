@@ -16,30 +16,26 @@ from .models import(
 
 @admin.register(Brand)
 class BrandAdmin(admin.ModelAdmin):
-    list_displey = ['name', 'image']
+    list_display = ['name', 'image']
 
 
 @admin.register(ProductShots)
 class ProductShotsAdmin(admin.ModelAdmin):
-    list_displey = ['title', 'description', 'product']
-
-
-@admin.register(Rating)
-class RatingAdmin(admin.ModelAdmin):
-    list_displey = ['id', 'start', 'product']
-
+    list_display = ['title', 'description', 'product']
 
 
 @admin.register(Reviews)
 class ReviewsAdmin(admin.ModelAdmin):
-    list_displey = ['email', 'name', 'text', 'parent', 'product']
-
+    list_display = ['email', 'name', 'date', 'product']
+    ordering = ['-date']
+    list_per_page = 10
 
 # Register your models here.
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
     prepopulated_fields = {'slug': ('name',)}
+
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
@@ -58,6 +54,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ['available', 'created', 'updated', 'manufacturer']
     list_editable = ['price', 'stock', 'available']
     prepopulated_fields = {'slug': ('name',)}
+    list_per_page = 10
 
     @admin.display(ordering='price', description='Статус')
     def reting_status(self, product: Product):
@@ -76,4 +73,6 @@ admin.site.register(RatingStar)
 admin.site.register(OperatingSystems)
 admin.site.register(Ram)
 admin.site.register(Platform)
+admin.site.register(Rating)
+
 
