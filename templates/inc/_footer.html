@@ -23,22 +23,24 @@
             <div class="col-md-4 pt-5">
                 <h2 class="h2 text-light border-bottom pb-3 border-light">Товар</h2>
                 <ul class="list-unstyled text-light footer-link-list">
-                    <li><a class="text-decoration-none" href="#">Ноутбуку</a></li>
-                    <li><a class="text-decoration-none" href="#">Аксессуары</a></li>
-                    <li><a class="text-decoration-none" href="#">Планшеты</a></li>
-                    <li><a class="text-decoration-none" href="#">Смартфоны</a></li>
-                    <li><a class="text-decoration-none" href="#">Клавиатуры</a></li>
+                    {% for prod in products %}
+                    <li><a class="text-decoration-none" href="#">{{ prod.name }}</a></li>
+                    {% endfor %}
                 </ul>
             </div>
 
+
             <div class="col-md-4 pt-5">
-                <h2 class="h2 text-light border-bottom pb-3 border-light">Дополнительная информация</h2>
+            <h2 class="h2 text-light border-bottom pb-3 border-light">Подписаться на рассылку</h2>
                 <ul class="list-unstyled text-light footer-link-list">
-                    <li><a class="text-decoration-none" href="#">Home</a></li>
-                    <li><a class="text-decoration-none" href="#">About Us</a></li>
-                    <li><a class="text-decoration-none" href="#">Shop Locations</a></li>
-                    <li><a class="text-decoration-none" href="#">FAQs</a></li>
-                    <li><a class="text-decoration-none" href="#">Contact</a></li>
+                    <nav class="navbar navbar-dark bg-dark">
+                        <form class="d-flex" action="#">
+                            {% comment %} {% csrf_token %}
+                            {{ contact_form }} {% endcomment %}
+                            <input class="form-control me-2" type="search" placeholder="Email" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Отправить</button>
+                        </form>
+                    </nav>
                 </ul>
             </div>
             

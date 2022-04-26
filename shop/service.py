@@ -1,3 +1,5 @@
+from multiprocessing import context
+from django.views.generic import ListView
 from django.views import View
 from django.shortcuts import redirect, render
 from django.contrib import messages
@@ -6,6 +8,9 @@ from django.contrib.auth import login, logout
 
 from .forms import LoginForm, RegisterForm, ReviewForm
 from .models import Product
+
+
+
 
 
 class AddReview(View):
@@ -60,6 +65,34 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('login')
+
+
+class IndexListView(ListView):
+    """
+    Вывод на главной странице 
+    товара недели и рекомендованного продукта
+    """
+
+    model = Product
+    template_name = "shop/index.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['product_week'] = Product.objects.filter(stock__lte=10)[:3]
+        context['product_rec'] = Product.objects.filter(stock__lte=10)[:3]
+        return context
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['product'] = Product.objects.all()
+
+# {% lorem 3 p %}
+# def HomePage(request):
+#     products = Product.objects.all()[:3]
+#     categories = Category.objects.all()[:3]
+
+#     return render(request, 'shop/index.html', {'products': products, 'categories': categories})
+
 
 
 # class RegisterUser(CreateView):

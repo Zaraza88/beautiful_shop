@@ -18,7 +18,7 @@ class CategoryView(DataMixin):
 
     def get_queryset(self):
         return Product.objects.filter(
-            category__slug=self.kwargs['category_slug']).select_related('category')
+            category__slug=self.kwargs['category_slug'])
 
 
 class FilterProductViev(DataMixin):
@@ -46,16 +46,9 @@ def About(request):
     return render(request, 'shop/about.html')
 
 
-def Contact(request):
-    return render(request, 'shop/contact.html')
-
-
-def HomePage(request):
-    products = Product.objects.all()[:3]
-    categories = Category.objects.all()[:3]
-
-    return render(request, 'shop/index.html', {'products': products, 'categories': categories})
-
+# def Contact(request):
+#     return render(request, 'shop/contact.html')
+    
 
 def test(request):
     return render(request, 'shop/test.html')

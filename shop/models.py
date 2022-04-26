@@ -1,8 +1,8 @@
 from django.db import models
 from django.urls import reverse
-from django.core.validators import MaxValueValidator
 from django.contrib.auth.models import User
-
+from django.core.validators import MaxValueValidator
+from django.core.exceptions import ValidationError
 
 
 class Category(models.Model):
@@ -24,6 +24,12 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+    def clean_name(self):
+        name = self.cleaned_data['name']
+        if not name.isalpha():
+            raise ValidationError('Имя должно состоять из букв')
+        return name
 
 
 class Brand(models.Model):
@@ -51,6 +57,10 @@ class OperatingSystems(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = 'Операционная система'
+        verbose_name_plural = 'Операционные системы'
+
 
 class Platform(models.Model):
     """Платформа"""
@@ -59,19 +69,24 @@ class Platform(models.Model):
 
     def __str__(self):
         return self.name
+    
+        
+    class Meta:
+        verbose_name = 'Платформа'
+        verbose_name_plural = 'Платформы'
 
 
 class Ram(models.Model):
-    """Кол-во ядер"""
+    """Оперативная память"""
 
-    count = models.IntegerField('Количество ядер')
+    count = models.IntegerField('Оперативная память')
     
     def __str__(self) -> str:
-        if self.count == 1:
-            return f'{self.count} ядро'
-        if self.count == 2 or self.count == 4:
-            return f'{self.count} ядра'
-        return f'{self.count} ядер'
+        return f'{self.count}'
+    
+    class Meta:
+        verbose_name = 'Озу'
+        verbose_name_plural = 'Озу'
 
 
 class Product(models.Model):
@@ -83,9 +98,7 @@ class Product(models.Model):
     )
     name = models.CharField('Название', max_length=200, db_index=True)
     slug = models.SlugField('Юрл', max_length=200, db_index=True)
-    image = models.ImageField(
-        'Изображение', upload_to='products/%Y/%m/%d', blank=True
-    )
+    image = models.ImageField('Изображение', upload_to='products/%Y/%m/%d')
     description = models.TextField('Описание продукта', blank=True)
     price = models.DecimalField('Цена', max_digits=10, decimal_places=2)
     stock = models.PositiveIntegerField('Остаток продукта')
@@ -190,7 +203,9 @@ class Reviews(models.Model):
         on_delete=models.SET_NULL, blank=True, null=True
     )
     product = models.ForeignKey(
-        Product, verbose_name='продукт', on_delete=models.CASCADE
+        Product, verbose_name='продукт', 
+        on_delete=models.CASCADE, 
+        related_name='product_review'
     )
     date = models.DateTimeField(auto_now=True)
     name = models.ForeignKey(

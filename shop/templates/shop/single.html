@@ -104,7 +104,8 @@
                                   </ul>
                                 <form action="" method="GET">
                                     <input type="hidden" name="product-title" value="Activewear">
-                                    <div class="row pb-3">
+                                    {% if request.user.is_authenticated %}
+                                    <div class="row">
                                         <div class="col d-grid">
                                             <button type="submit"
                                                     class="btn btn-success btn-lg"
@@ -112,48 +113,42 @@
                                                     value="addtocard">Add To Cart</button>
                                         </div>
                                     </div>
+                                    {% endif %}
                                 </form>
                                 <div class="row">
                                     <div class="single-form-left">
                                         <div class="contact-single">
                                             {% if request.user.is_authenticated %}
-                                            <h3 class="editContent">
-                                                <br>
-                                                Оставить отзыв
-                                            </h3>
                                             <form action="{% url 'add_rewiew' product.id %}" method="post" class="mt-4">
                                                 {% csrf_token %}
-                                                <div class="mb-3">
-                                                    <label for="inputmessage">Message</label>
+                                                <div class="card border-dark" style="max-width: 45rem;">
                                                     <textarea class="form-control mt-1"
                                                               id="message"
                                                               name="text"
-                                                              placeholder="Message"
+                                                              placeholder="Оставьте свой отзыв"
                                                               rows="8"></textarea>
                                                 </div>
                                                 <button type="submit" class="mt-3 btn btn-success btn-block px-3">Отправить</button>
                                             </form>
                                             {% endif %}
                                             
-                                            {% for review in product.reviews_set.all %}
-                                            <div class="col-12 mb-3">
-                                                <div class="w-100 my-3 border-top border-dark"></div>
-                                            </div>  
-                                                <div class="media py-1">
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item">
-                                                            <h4><span class="badge bg-secondary">{{ review.name|title }}</span></h4>
-                                                        </li>
-                                                    </ul>            
-                                                    <p class="mt-2 editContent">
-                                                        {{ review.text|title }}
-                                                    </p>
+                                            {% for review in product.product_review.all %}
+                                            <br>
+                                            <div class="card border-dark mb-3" style="max-width: 45rem;">
+                                                <div class="card-header">
+                                                    <ul class="nav nav-pills card-header-pills">
+                                                    <li class="nav-item">
+                                                        <a class="btn btn-secondary">{{ review.name|title }}</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link disabled" tabindex="-1" aria-disabled="true">Дата публикации: {{ review.date }}</a>
+                                                    </li>
+                                                    </ul>
                                                 </div>
-                                                <ul class="nav justify-content-end">
-                                                <li class="nav-item">
-                                                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Дата публикации: {{ review.date }}</a>
-                                                </li>
-                                                </ul>
+                                                <div class="card-body text-dark">
+                                                    <p class="card-text">{{ review.text|title }}</p>
+                                                </div>
+                                            </div>
                                             {% endfor %}
                                         </div>
                                     </div>

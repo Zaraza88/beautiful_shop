@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 
 from .models import(
     Product,
@@ -21,7 +22,13 @@ class BrandAdmin(admin.ModelAdmin):
 
 @admin.register(ProductShots)
 class ProductShotsAdmin(admin.ModelAdmin):
-    list_display = ['title', 'description', 'product']
+    list_display = ['title', 'description', 'product', 'get_image']
+    readonly_fields = ['get_image']
+
+
+    def get_image(self, obj):
+        return mark_safe(f'<img src={obj.image.url} wigth="50" height="60"')
+
 
 
 @admin.register(Reviews)
@@ -47,6 +54,7 @@ class ProductAdmin(admin.ModelAdmin):
         'price', 
         'stock', 
         'available', 
+        'get_image',
         'created', 
         'updated', 
         'reting_status'
@@ -55,6 +63,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_editable = ['price', 'stock', 'available']
     prepopulated_fields = {'slug': ('name',)}
     list_per_page = 10
+    readonly_fields = ['get_image']
 
     @admin.display(ordering='price', description='Статус')
     def reting_status(self, product: Product):
@@ -68,11 +77,21 @@ class ProductAdmin(admin.ModelAdmin):
             return 'От 2000р. до 5000р.'            
         return 'Свыше 5000р.'
 
+    def get_image(self, obj):
+        return mark_safe(f'<img src={obj.image.url} wigth="50" height="60"')
+
+    get_image.short_description = 'Дополнительное фото'
+
 
 admin.site.register(RatingStar)
 admin.site.register(OperatingSystems)
 admin.site.register(Ram)
 admin.site.register(Platform)
 admin.site.register(Rating)
+
+admin.site.site_title = 'Django Магазин'
+admin.site.site_header = 'Django Магазин'
+
+
 
 

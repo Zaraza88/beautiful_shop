@@ -86,7 +86,7 @@
 <section class="container py-5">
     <div class="row text-center pt-3">
         <div class="col-lg-6 m-auto">
-            <h1 class="h1">Категории месяца</h1>
+            <h1 class="h1">Товар недели</h1>
             <p>
                 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
                 deserunt mollit anim id est laborum.
@@ -94,7 +94,7 @@
         </div>
     </div>
     <div class="row">
-        {% for cat in categories %}
+        {% for cat in product_week %}
         <div class="col-12 col-md-4 p-5 mt-3">
             <a href="{{ cat.get_absolute_url }}"><img src="{{ cat.image.url }}" class="rounded-circle img-fluid border"></a>
             <h5 class="text-center mt-3 mb-3">{{ cat.name }}</h5>
@@ -116,7 +116,7 @@
             </div>
         </div>
         <div class="row">
-            {% for prod in products %}
+            {% for prod in product_rec %}
             <div class="col-12 col-md-4 mb-4">
                 <div class="card h-100">
                     <a href="{{ prod.get_absolute_url }}">
@@ -133,11 +133,8 @@
                             </li>
                             <li class="text-muted text-right">{{ prod.price }}р.</li>
                         </ul>
-                        <a href="shop-single.html" class="h2 text-decoration-none text-dark">{{ prod.name }}</a>
-                        <p class="card-text">
-                            {{ prod.description }}
-                        </p>
-                        <p class="text-muted">Reviews (74)</p>
+                        <a href="{{ prod.get_absolute_url }}" class="h2 text-decoration-none text-dark">{{ prod.name }}</a>
+                        <p class="text-muted">Отзывов({{ prod.product_review.count }})</p>
                     </div>
                 </div>
             </div>
